@@ -1,12 +1,12 @@
 const Button = ({color, text}) => {
     return (
-    <button style={{backgroundColour:color}} className='btn'>{text}</button>
+    <button style={{backgroundColor: color}} className='btn'>{text}</button>
     )
 }
 
 
 Button.defaultProps = {
-    color: 'black',
+    color: 'grey',
     text: 'button',
 }
 
