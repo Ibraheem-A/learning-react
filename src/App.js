@@ -24,10 +24,19 @@ function App() {
     }
   ])
 
+  /* 
+    To Delete Task
+    Remember: States get passed down, actions get passed up
+    States are Immutable
+  */
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id))
+  }
+
   return (
     <div className="container">
       <Header />
-      <Tasks tasks={tasks} />
+      <Tasks tasks={tasks} onDelete={deleteTask} />
     </div>
   );
 }
