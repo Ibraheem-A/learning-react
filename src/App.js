@@ -25,6 +25,11 @@ function App() {
     }
   ])
 
+  // Add Task
+  const addTask = (task) =>{
+    console.log(task)
+  }
+
   /* 
     To Delete Task
     Remember: States get passed down, actions get passed up
@@ -41,7 +46,7 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <AddTask />
+      <AddTask onAddTask={addTask}/>
       <Tasks tasks={tasks} onDelete={deleteTask} onToggleReminder={toggleReminder} />
     </div>
   );
