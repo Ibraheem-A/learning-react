@@ -27,7 +27,9 @@ function App() {
 
   // Add Task
   const addTask = (task) =>{
-    console.log(task)
+    const id = tasks.length + 1
+    const newTask = {id, ...task}
+    setTasks([...tasks, newTask])
   }
 
   /* 
