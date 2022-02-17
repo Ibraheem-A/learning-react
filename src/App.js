@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className="container">
-      <Header onShowAddTask={()=>setShowAddTask(!showAddTask)}/>
+      <Header onShowAddTask={()=>setShowAddTask(!showAddTask)} showAdd={showAddTask} />
       {showAddTask && <AddTask onAddTask={addTask}/>}
       <Tasks tasks={tasks} onDelete={deleteTask} onToggleReminder={toggleReminder} />
     </div>
