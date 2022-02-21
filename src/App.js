@@ -36,7 +36,8 @@ function App() {
     Remember: States get passed down, actions get passed up
     States are Immutable
   */
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    await fetch (`http://localhost:5000/tasks/${id}`, {method: 'DELETE',})
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
