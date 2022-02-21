@@ -7,9 +7,9 @@ function App() {
   const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([])
 
-  useEffect(()=>{
-    const getTasks = async() =>{
-      const tasksFromServer = await(fetchTasks())
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await (fetchTasks())
       setTasks(tasksFromServer)
     }
     getTasks()
@@ -17,7 +17,7 @@ function App() {
 
 
   // Fetch Task
-  const fetchTasks = async()=>{
+  const fetchTasks = async () => {
     const res = await fetch('http://localhost:5000/tasks')
     const data = res.json()
 
@@ -25,9 +25,16 @@ function App() {
   }
 
   // Add Task
-  const addTask = (task) =>{
-    const id = tasks.length + 1
-    const newTask = {id, ...task}
+  const addTask = async (task) => {
+    const res = await fetch('http://localhost:5000/tasks',
+      {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(task),
+      }
+    )
+
+    const newTask = await res.json()
     setTasks([...tasks, newTask])
   }
 
@@ -37,18 +44,18 @@ function App() {
     States are Immutable
   */
   const deleteTask = async (id) => {
-    await fetch (`http://localhost:5000/tasks/${id}`, {method: 'DELETE',})
+    await fetch(`http://localhost:5000/tasks/${id}`, { method: 'DELETE', })
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
-  const toggleReminder = (id, isReminder) =>{
-    setTasks(tasks.map((task)=> task.id === id ? {...task, reminder : !task.reminder} : task))
-}
+  const toggleReminder = (id, isReminder) => {
+    setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: !task.reminder } : task))
+  }
 
   return (
     <div className="container">
-      <Header onShowAddTask={()=>setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-      {showAddTask && <AddTask onAddTask={addTask}/>}
+      <Header onShowAddTask={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+      {showAddTask && <AddTask onAddTask={addTask} />}
       <Tasks tasks={tasks} onDelete={deleteTask} onToggleReminder={toggleReminder} />
     </div>
   );
