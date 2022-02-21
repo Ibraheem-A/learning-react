@@ -7,6 +7,7 @@ function App() {
   const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([])
 
+  // use if you want an action to be executed when page is loaded
   useEffect(() => {
     const getTasks = async () => {
       const tasksFromServer = await (fetchTasks())
